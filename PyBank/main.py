@@ -17,19 +17,23 @@ with open(csvpath) as csvfile:
 
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
-    budget_dict = {rows[0]:rows[1] for rows in csvreader}
+    next(csvreader)
+    budget_dict = {rows[0]:int(rows[1]) for rows in csvreader}
     print(csvreader)
     print(budget_dict)
 
+    switch = False
+    previous = 0
+    total_change = 0
+    change_counter = 0
     for value  in budget_dict.values():
+        if switch == True:
+            dif = value - previous
+            total_change = total_change + dif
+            change_counter += 1
         print(value)
         total_profit = sum(budget_dict.values())
         print(total_profit)
-    # # Read the header row first 
-    # csv_header = next(csvreader)
-    # print(f"CSV Header: {csv_header}")
-    
-    # Months = len(csvfile.readlines())
-    # print(Months) 
-
- 
+        switch = True
+        previous = value
+        
