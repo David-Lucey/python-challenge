@@ -26,14 +26,29 @@ with open(csvpath) as csvfile:
     previous = 0
     total_change = 0
     change_counter = 0
-    for value  in budget_dict.values():
+    increase = 0
+    increase_month = ""
+
+
+    for month  in budget_dict:
+        value = budget_dict[month]
         if switch == True:
+
             dif = value - previous
             total_change = total_change + dif
             change_counter += 1
+            if increase < dif:
+                increase = dif
+                increase_month = month
         print(value)
         total_profit = sum(budget_dict.values())
         print(total_profit)
         switch = True
         previous = value
-        
+    avg_change = total_change / change_counter
+    avg_change = round(avg_change, 2)
+    print(avg_change)
+    print(f"{increase_month} {increase}")
+    #print(increase)
+
+
