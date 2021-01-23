@@ -1,7 +1,7 @@
 import os
 import csv
 candidate_dict = {}
-# candidate_name = []
+candidate_name = []
 csvpath = os.path.join('Resources', 'election_data.csv')
 
 with open(csvpath) as csvfile:
@@ -9,7 +9,7 @@ with open(csvpath) as csvfile:
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
+    #print(f"CSV Header: {csv_header}")
 
     for row in csvreader: 
         candidate_name = row[2]
@@ -23,14 +23,25 @@ with open(csvpath) as csvfile:
         total_votes = sum(candidate_dict.values())
     # Read the header row first (skip this step if there is now header)
     #csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
-    print(candidate_dict)
-    print(f"Total Votes: {total_votes}")
-     
+winner = ''
+winning_total = 0
+for key in candidate_dict:
+    if winning_total < candidate_dict[key]:
+        winner = key
+        winning_total = candidate_dict[key]
+    vote_percent = float(candidate_dict[key]) / float(total_votes) * 100
+    #print(key)
+    #print(candidate_dict[key])
+    print(f'{key} = {vote_percent:.3f}% ({candidate_dict[key]})')
 
-    # with open(csvpath) as csvfile:
 
-       
-        # csvreader = csv.reader(csvfile, delimiter=',')
-        # poll_dict = {rows[0]:rows[2] for rows in csvreader}
-        # #print(poll_dict)
+
+#print(f"CSV Header: {csv_header}")
+#print(candidate_dict)
+print(f"Total Votes: {total_votes}")
+#print(f'{candidate_dict[candidate_name]}')
+print(winner)
+
+    #print(candidate_name[]) 
+
+    
