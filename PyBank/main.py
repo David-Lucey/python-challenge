@@ -20,7 +20,7 @@ with open(csvpath) as csvfile:
     next(csvreader)
     budget_dict = {rows[0]:int(rows[1]) for rows in csvreader}
     print(csvreader)
-    print(budget_dict)
+    # print(budget_dict)
 
     switch = False
     previous = 0
@@ -28,7 +28,8 @@ with open(csvpath) as csvfile:
     change_counter = 0
     increase = 0
     increase_month = ""
-
+    decrease = 0
+    decrease_month = ""
 
     for month  in budget_dict:
         value = budget_dict[month]
@@ -40,15 +41,23 @@ with open(csvpath) as csvfile:
             if increase < dif:
                 increase = dif
                 increase_month = month
-        print(value)
+            if decrease > dif:
+                decrease = dif
+                decrease_month = month
+        # print(value)
         total_profit = sum(budget_dict.values())
-        print(total_profit)
+        # print(total_profit)
         switch = True
         previous = value
+    print("Financial Analysis")
+    print("-----------------------")
+    print(f"Total Months: {len(budget_dict)}")
+    print(f"Total: {total_profit}")
     avg_change = total_change / change_counter
     avg_change = round(avg_change, 2)
-    print(avg_change)
-    print(f"{increase_month} {increase}")
+    print(f'Average Change: {avg_change}')
+    print(f"Greatest Increase in Profits: {increase_month} (${increase})")
+    print(f"Greatest Decrease in Profits: {decrease_month} (${decrease})")
     #print(increase)
 
 
